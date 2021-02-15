@@ -1,13 +1,13 @@
 //
-//  NotificationsController.swift
+//  RegistrationController.swift
 //  TwitterTutorialRpt
 //
-//  Created by Stephen Learmonth on 10/02/2021.
+//  Created by Stephen Learmonth on 15/02/2021.
 //
 
 import UIKit
 
-class NotificationsController: UIViewController {
+class RegistrationController: UIViewController {
     
     // MARK: - Properties
     
@@ -15,14 +15,15 @@ class NotificationsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        
     }
+    
+    // MARK: - Selectors
     
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .white
-        navigationItem.title = "Notifications"
- 
+        view.backgroundColor = .twitterBlue
     }
 }
+
