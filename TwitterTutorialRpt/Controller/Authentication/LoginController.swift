@@ -20,30 +20,42 @@ class LoginController: UIViewController {
     }()
     
     private lazy var emailContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .red
-        view.setHeight(to: 50)
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "ic_mail_outline_white_2x-1")
-        view.addSubview(iv)
-        iv.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8.0, paddingRight: 8.0, width: 24.0, height: 24.0)
+        let view = Utilities.shared.createCustomInputContainerView(withImage: #imageLiteral(resourceName: "ic_mail_outline_white_2x-1"), andTextField: emailTextField)
         return view
     }()
     
     private lazy var passwordContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemPurple
-        view.setHeight(to: 50)
+        let view = Utilities.shared.createCustomInputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"), andTextField: passwordTextField)
         return view
+    }()
+    
+    private let emailTextField: UITextField = {
+        let tf = Utilities.shared.createCustomTextField(withPlaceholder: "Email")
+        tf.tag = 0
+        return tf
+    }()
+
+    private let passwordTextField: UITextField = {
+        let tf = Utilities.shared.createCustomTextField(withPlaceholder: "Password")
+        tf.isSecureTextEntry = true
+        tf.tag = 1
+        return tf
+    }()
+    
+    private let logInButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Log In", for: .normal)
+        button.setTitleColor(.twitterBlue, for: .normal)
+        button.backgroundColor = .white
+        button.setHeight(to: 50.0)
+        return button
     }()
 
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
-        
     }
     
     // MARK: - Selectors
@@ -59,11 +71,12 @@ class LoginController: UIViewController {
         logoImageView.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
         logoImageView.setDimensions(width: 150.0, height: 150.0)
         
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView])
+        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, logInButton])
         stack.axis = .vertical
-        stack.spacing = 8
+        stack.spacing = 20
+        stack.distribution = .fill
         
         view.addSubview(stack)
-        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor)
+        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32.0, paddingRight: 32.0)
     }
 }
