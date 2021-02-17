@@ -48,8 +48,27 @@ class Utilities {
         
         if sender.tag == 0 {
             sender.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        } else {
+        } else if sender.tag == 1 {
             sender.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        } else if sender.tag == 2 {
+            sender.attributedPlaceholder = NSAttributedString(string: "Full Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        } else if sender.tag == 3 {
+            sender.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        } else {
+            // Do nothing
         }
+    }
+    
+    func attributedButton(_ firstPart: String, _ secondPart: String) -> UIButton {
+        let button = UIButton(type: .system)
+        
+        let attributedTitle = NSMutableAttributedString(string: firstPart,
+                                                        attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0),
+                                                                     NSAttributedString.Key.foregroundColor: UIColor.white ])
+        attributedTitle.append(NSAttributedString(string: secondPart,
+                                                  attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16.0),
+                                                               NSAttributedString.Key.foregroundColor: UIColor.white]))
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        return button
     }
 }

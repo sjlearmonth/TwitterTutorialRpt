@@ -48,6 +48,15 @@ class LoginController: UIViewController {
         button.setTitleColor(.twitterBlue, for: .normal)
         button.backgroundColor = .white
         button.setHeight(to: 50.0)
+        button.layer.cornerRadius = 5.0
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
+        button.addTarget(self, action: #selector(handleLogInButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var dontHaveAnAccountButton: UIButton = {
+        let button = Utilities.shared.attributedButton("Don't have an account yet? ", "Sign Up")
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
     }()
 
@@ -59,6 +68,22 @@ class LoginController: UIViewController {
     }
     
     // MARK: - Selectors
+    
+    @objc func handleLogInButtonClicked() {
+        print("DEBUG: log in button clicked")
+    }
+    
+    @objc func handleShowSignUp() {
+        let controller = RegistrationController()
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc func handleViewTapped() {
+        print("DEBUG: view tapped")
+        view.endEditing(true)
+    }
     
     // MARK: - Helpers
     
@@ -74,9 +99,16 @@ class LoginController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, logInButton])
         stack.axis = .vertical
         stack.spacing = 20
-        stack.distribution = .fill
+        stack.distribution = .fillEqually
         
         view.addSubview(stack)
         stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32.0, paddingRight: 32.0)
+        
+        view.addSubview(dontHaveAnAccountButton)
+        dontHaveAnAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 40.0, paddingRight: 40.0)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleViewTapped))
+        tap.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tap)
     }
 }
