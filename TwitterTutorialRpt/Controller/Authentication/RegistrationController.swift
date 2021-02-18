@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RegistrationController: UIViewController {
     
@@ -116,7 +117,17 @@ class RegistrationController: UIViewController {
     }
     
     @objc func handleRegistrationButtonClicked() {
-        print("DEBUG: registration button clicked")
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text else { return }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: error is \(error.localizedDescription)")
+                return
+            }
+            
+            print("DEBUG: Successfully registered user")
+        }
     }
     
     // MARK: - Helpers
@@ -157,7 +168,6 @@ class RegistrationController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleViewTapped))
         tap.numberOfTapsRequired = 1
         view.addGestureRecognizer(tap)
-
     }
 }
 
