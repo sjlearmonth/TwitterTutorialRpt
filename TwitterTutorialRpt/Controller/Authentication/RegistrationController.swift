@@ -13,7 +13,7 @@ class RegistrationController: UIViewController {
     
     private lazy var addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "plus_photo"), for: .normal)
+        button.setImage(UIImage(named: "add_photo"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleAddPhotoButtonClicked), for: .touchUpInside)
         button.layer.cornerRadius = 128.0 / 2.0
@@ -22,6 +22,7 @@ class RegistrationController: UIViewController {
         button.contentMode = .scaleAspectFill
         button.imageView?.clipsToBounds = true
         button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 3.0
         return button
     }()
     
@@ -168,8 +169,6 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         guard let profileImage = info[.editedImage] as? UIImage else { return }
         
         self.addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        addPhotoButton.layer.borderWidth = 3.0
         
         dismiss(animated: true, completion: nil)
     }
