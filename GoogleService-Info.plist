@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>715828107453-pg6cujb09cfjmr2hhhfm3psbknke81qv.apps.googleusercontent.com</string>
+	<string>137582116738-052ts2hneig5qn9i4napp0ktig79ngoa.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.715828107453-pg6cujb09cfjmr2hhhfm3psbknke81qv</string>
+	<string>com.googleusercontent.apps.137582116738-052ts2hneig5qn9i4napp0ktig79ngoa</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDW4K9cer_3x2KTI7MxY5TScwHJBWSOLNg</string>
+	<string>AIzaSyCah6UGPOGhOz1eqkV0nciULl5HVHayFjc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>715828107453</string>
+	<string>137582116738</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.sjlearmonth.TwitterTutorialRpt</string>
 	<key>PROJECT_ID</key>
-	<string>twittertutorialrpt</string>
+	<string>twittertutorialrpt-f4dbc</string>
 	<key>STORAGE_BUCKET</key>
-	<string>twittertutorialrpt.appspot.com</string>
+	<string>twittertutorialrpt-f4dbc.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:715828107453:ios:d217455465823ea58f3fd4</string>
+	<string>1:137582116738:ios:df15a2591692aae76e999b</string>
 </dict>
 </plist>

@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		866AC619C634134F1783A77E /* Pods_TwitterTutorialRpt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B68925307555CE865C1A69 /* Pods_TwitterTutorialRpt.framework */; };
-		C43717D025DEE9CF005B83E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C43717CF25DEE9CF005B83E0 /* GoogleService-Info.plist */; };
+		C43717E925E02CED005B83E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C43717E825E02CED005B83E0 /* GoogleService-Info.plist */; };
+		C43717EC25E030FA005B83E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43717EB25E030FA005B83E0 /* Constants.swift */; };
 		C4612B8925D44AFB00CC1CC9 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4612B8825D44AFB00CC1CC9 /* MainTabController.swift */; };
 		C4612B8C25D453CE00CC1CC9 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4612B8B25D453CE00CC1CC9 /* FeedController.swift */; };
 		C4612B8F25D4544800CC1CC9 /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4612B8E25D4544800CC1CC9 /* ExploreController.swift */; };
@@ -27,7 +28,8 @@
 /* Begin PBXFileReference section */
 		3784C66C6A5BBDEE3CF33BC8 /* Pods-TwitterTutorialRpt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterTutorialRpt.debug.xcconfig"; path = "Target Support Files/Pods-TwitterTutorialRpt/Pods-TwitterTutorialRpt.debug.xcconfig"; sourceTree = "<group>"; };
 		54B68925307555CE865C1A69 /* Pods_TwitterTutorialRpt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterTutorialRpt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C43717CF25DEE9CF005B83E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C43717E825E02CED005B83E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		C43717EB25E030FA005B83E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C4612B8825D44AFB00CC1CC9 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		C4612B8B25D453CE00CC1CC9 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		C4612B8E25D4544800CC1CC9 /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
@@ -64,7 +66,6 @@
 				3784C66C6A5BBDEE3CF33BC8 /* Pods-TwitterTutorialRpt.debug.xcconfig */,
 				FB237139338A931D7A003E74 /* Pods-TwitterTutorialRpt.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -100,7 +101,7 @@
 				C49DAA0425D440CC0069553C /* Assets.xcassets */,
 				C49DAA0625D440CC0069553C /* LaunchScreen.storyboard */,
 				C49DAA0925D440CC0069553C /* Info.plist */,
-				C43717CF25DEE9CF005B83E0 /* GoogleService-Info.plist */,
+				C43717E825E02CED005B83E0 /* GoogleService-Info.plist */,
 			);
 			path = TwitterTutorialRpt;
 			sourceTree = "<group>";
@@ -151,6 +152,7 @@
 			children = (
 				C4CC99D525DAD47E00D43EB7 /* Extensions.swift */,
 				C4E21CE825DC1B4C0024FDB9 /* Utilities.swift */,
+				C43717EB25E030FA005B83E0 /* Constants.swift */,
 			);
 			path = Utililties;
 			sourceTree = "<group>";
@@ -233,7 +235,7 @@
 			files = (
 				C49DAA0825D440CC0069553C /* LaunchScreen.storyboard in Resources */,
 				C49DAA0525D440CC0069553C /* Assets.xcassets in Resources */,
-				C43717D025DEE9CF005B83E0 /* GoogleService-Info.plist in Resources */,
+				C43717E925E02CED005B83E0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +299,7 @@
 				C4612B8925D44AFB00CC1CC9 /* MainTabController.swift in Sources */,
 				C4CC99DE25DAE47F00D43EB7 /* RegistrationController.swift in Sources */,
 				C4612B8C25D453CE00CC1CC9 /* FeedController.swift in Sources */,
+				C43717EC25E030FA005B83E0 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
