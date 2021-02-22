@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabController: UITabBarController {
     
@@ -25,9 +26,8 @@ class MainTabController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureViewControllers()
-        configureUI()
+//        logUserOut()
+        authenticateUserAndConfigureUI()
     }
     
     // MARK: - Selectors
@@ -68,6 +68,32 @@ class MainTabController: UITabBarController {
         navigationController.navigationBar.barTintColor = .white
         
         return navigationController
+    }
+    
+    // MARK: - API
+    
+    func authenticateUserAndConfigureUI() {
+        view.backgroundColor = .twitterBlue
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalTransitionStyle = .crossDissolve
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+        } else {
+            configureViewControllers()
+            configureUI()
+        }
+    }
+    
+    private func logUserOut() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print("DEBUG: Failed to sign user out with error \(error.localizedDescription)")
+        }
     }
     
 }
