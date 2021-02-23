@@ -133,13 +133,13 @@ class RegistrationController: UIViewController {
                                           profileImage: profileImage)
         
         AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
-            print("DEBUG: Sign up successful.")
-            print("DEBUG: Handle update user interface here.")
-            if let error = error {
-                print("DEBUG: error is \(error.localizedDescription)")
-            }
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            tab.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true, completion: nil)
+            
         }
-        
     }
     
     // MARK: - Helpers

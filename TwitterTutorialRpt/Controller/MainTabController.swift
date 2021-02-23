@@ -41,7 +41,7 @@ class MainTabController: UITabBarController {
     private func configureUI() {
         view.addSubview(actionButton)
         actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64.0, paddingRight: 16.0, width: 56.0, height: 56.0)
-        
+        tabBar.barTintColor = .white
     }
     
     private func configureViewControllers() {
@@ -72,6 +72,10 @@ class MainTabController: UITabBarController {
     
     // MARK: - API
     
+    func fetchUser() {
+        UserService.shared.fetchUser()
+    }
+    
     func authenticateUserAndConfigureUI() {
         view.backgroundColor = .twitterBlue
         if Auth.auth().currentUser == nil {
@@ -84,6 +88,7 @@ class MainTabController: UITabBarController {
         } else {
             configureViewControllers()
             configureUI()
+            fetchUser()
         }
     }
     
