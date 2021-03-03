@@ -12,6 +12,8 @@
 		C400FD6825E5816C00CF72B1 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C400FD6725E5816C00CF72B1 /* UserService.swift */; };
 		C43717E925E02CED005B83E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C43717E825E02CED005B83E0 /* GoogleService-Info.plist */; };
 		C43717EC25E030FA005B83E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43717EB25E030FA005B83E0 /* Constants.swift */; };
+		C43DAA2725EFF147006EC204 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43DAA2625EFF147006EC204 /* UploadTweetController.swift */; };
+		C43DAA2A25F001A9006EC204 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43DAA2925F001A9006EC204 /* CaptionTextView.swift */; };
 		C4612B8925D44AFB00CC1CC9 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4612B8825D44AFB00CC1CC9 /* MainTabController.swift */; };
 		C4612B8C25D453CE00CC1CC9 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4612B8B25D453CE00CC1CC9 /* FeedController.swift */; };
 		C4612B8F25D4544800CC1CC9 /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4612B8E25D4544800CC1CC9 /* ExploreController.swift */; };
@@ -35,6 +37,8 @@
 		C400FD6725E5816C00CF72B1 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		C43717E825E02CED005B83E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C43717EB25E030FA005B83E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C43DAA2625EFF147006EC204 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
+		C43DAA2925F001A9006EC204 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
 		C4612B8825D44AFB00CC1CC9 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		C4612B8B25D453CE00CC1CC9 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		C4612B8E25D4544800CC1CC9 /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				C4612B8E25D4544800CC1CC9 /* ExploreController.swift */,
 				C4612B9125D4545B00CC1CC9 /* NotificationsController.swift */,
 				C4612B9425D4547400CC1CC9 /* ConversationsController.swift */,
+				C43DAA2625EFF147006EC204 /* UploadTweetController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 		C49DAA1825D448840069553C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C43DAA2925F001A9006EC204 /* CaptionTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,12 +305,14 @@
 			files = (
 				C400FD6825E5816C00CF72B1 /* UserService.swift in Sources */,
 				C4612B9225D4545B00CC1CC9 /* NotificationsController.swift in Sources */,
+				C43DAA2A25F001A9006EC204 /* CaptionTextView.swift in Sources */,
 				C4612B9525D4547400CC1CC9 /* ConversationsController.swift in Sources */,
 				C4E21CE925DC1B4C0024FDB9 /* Utilities.swift in Sources */,
 				C49DA9FC25D440C90069553C /* AppDelegate.swift in Sources */,
 				C4CC99D625DAD47E00D43EB7 /* Extensions.swift in Sources */,
 				C4CC99DA25DAE37100D43EB7 /* LoginController.swift in Sources */,
 				C400FD6525E40E5400CF72B1 /* AuthService.swift in Sources */,
+				C43DAA2725EFF147006EC204 /* UploadTweetController.swift in Sources */,
 				C4A6965625E6AB4A0094D076 /* User.swift in Sources */,
 				C4612B8F25D4544800CC1CC9 /* ExploreController.swift in Sources */,
 				C49DA9FE25D440C90069553C /* SceneDelegate.swift in Sources */,

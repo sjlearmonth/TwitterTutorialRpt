@@ -25,13 +25,11 @@ struct AuthService {
     }
     
     func registerUser(credentials: AuthCredentials, completion: @escaping (Error?, DatabaseReference) -> Void) {
-        
         let email = credentials.email
         let password = credentials.password
-        let username = credentials.username
         let fullname = credentials.fullname
+        let username = credentials.username
         let profileImage = credentials.profileImage
-
         guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
         let filename = NSUUID().uuidString
         let storageRef = PROFILE_IMAGES_STORAGE.child(filename)
@@ -44,10 +42,7 @@ struct AuthService {
                         return
                     }
                     guard let uid = result?.user.uid else { return }
-                    let values = ["email": email,
-                                  "username": username,
-                                  "fullname": fullname,
-                                  "profileImageUrl": profileImageUrl]
+                    let values = ["email": email, "fullname": fullname, "username": username, "profileImageUrl": profileImageUrl]
                     USERS_REF.child(uid).updateChildValues(values, withCompletionBlock: completion)
                 }
             }
