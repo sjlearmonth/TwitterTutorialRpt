@@ -8,6 +8,7 @@
 import Firebase
 
 struct TweetService {
+    
     static let shared = TweetService()
     
     func uploadTweet(caption: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
@@ -20,5 +21,16 @@ struct TweetService {
                       "caption": caption] as [String: Any]
         
         TWEETS_REF.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+    }
+    
+    func fetchTweets(completion: @escaping ([Tweet]) -> Void) {
+        var tweets = [Tweet]()
+        TWEETS_REF.observe(.childAdded) { (snapshot) in
+            guard let dictionary = snapshot.value as? [String: Any] else { return }
+            let tweetID = snapshot.key
+            let tweet = Tweet(tweetID: tweetID, dictionary: dictionary)
+            tweets.append(tweet)
+            completion(tweets)
+        }
     }
 }

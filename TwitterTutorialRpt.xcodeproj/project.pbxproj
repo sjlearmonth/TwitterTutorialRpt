@@ -29,6 +29,7 @@
 		C4CC99DA25DAE37100D43EB7 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99D925DAE37100D43EB7 /* LoginController.swift */; };
 		C4CC99DE25DAE47F00D43EB7 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC99DD25DAE47F00D43EB7 /* RegistrationController.swift */; };
 		C4E21CE925DC1B4C0024FDB9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E21CE825DC1B4C0024FDB9 /* Utilities.swift */; };
+		C4FD507625F2A3FC00CCBD3F /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FD507525F2A3FC00CCBD3F /* Tweet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		C4CC99D925DAE37100D43EB7 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C4CC99DD25DAE47F00D43EB7 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		C4E21CE825DC1B4C0024FDB9 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		C4FD507525F2A3FC00CCBD3F /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		FB237139338A931D7A003E74 /* Pods-TwitterTutorialRpt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterTutorialRpt.release.xcconfig"; path = "Target Support Files/Pods-TwitterTutorialRpt/Pods-TwitterTutorialRpt.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A6965525E6AB4A0094D076 /* User.swift */,
+				C4FD507525F2A3FC00CCBD3F /* Tweet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				C4CC99DE25DAE47F00D43EB7 /* RegistrationController.swift in Sources */,
 				C4612B8C25D453CE00CC1CC9 /* FeedController.swift in Sources */,
 				C43717EC25E030FA005B83E0 /* Constants.swift in Sources */,
+				C4FD507625F2A3FC00CCBD3F /* Tweet.swift in Sources */,
 				C480225525F15664001A50EC /* TweetService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
