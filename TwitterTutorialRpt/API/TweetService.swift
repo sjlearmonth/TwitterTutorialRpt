@@ -15,7 +15,7 @@ struct TweetService {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         let values = ["uid": uid,
-                      "timestamp": Int(NSDate().timeIntervalSince1970),
+                      "timestamp": Int(NSDate().timeElapsedSince1970),
                       "likes": 0,
                       "retweets": 0,
                       "caption": caption] as [String: Any]

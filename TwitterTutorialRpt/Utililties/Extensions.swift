@@ -121,3 +121,8 @@ extension UILabel {
     }
 }
 
+extension NSDate {
+    var timeElapsedSince1970: Double {
+        return timeIntervalSince1970
+    }
+}
