@@ -129,7 +129,7 @@ class RegistrationController: UIViewController {
         let credentials = AuthCredentials(email: email,
                                           password: password,
                                           fullname: fullname,
-                                          username: username,
+                                          username: username.lowercased(),
                                           profileImage: profileImage)
         
         AuthService.shared.registerUser(credentials: credentials) { (error, ref) in

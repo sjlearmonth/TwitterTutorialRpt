@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TweetCell: UICollectionViewCell {
     
@@ -101,7 +102,6 @@ class TweetCell: UICollectionViewCell {
                      paddingLeft: 12.0,
                      paddingRight: 12.0)
         
-        infoLabel.text = "Eddie Brock @venom"
         infoLabel.font = UIFont.systemFont(ofSize: 13.0)
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton,
@@ -145,7 +145,9 @@ class TweetCell: UICollectionViewCell {
     
     private func configure() {
         guard let tweet = tweet else { return }
+        let viewModel = TweetViewModel(tweet: tweet)
         captionLabel.text = tweet.caption
+        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
+        infoLabel.attributedText = viewModel.userInfoText
     }
-    
 }
