@@ -14,6 +14,7 @@ class ProfileController: UICollectionViewController {
     
     // MARK: - Properties
     
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -24,6 +25,7 @@ class ProfileController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.barStyle = .black
     }
     
     // MARK: - Selectors
@@ -39,7 +41,6 @@ class ProfileController: UICollectionViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: headerIdentifier)
         navigationController?.navigationBar.isHidden = true
-        navigationController?.navigationBar.barStyle = .black
     }
 }
 
@@ -65,7 +66,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300.0)
+        return CGSize(width: view.frame.width, height: 350.0)
     }
 }
 
