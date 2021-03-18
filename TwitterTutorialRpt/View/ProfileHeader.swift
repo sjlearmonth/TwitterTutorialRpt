@@ -7,9 +7,22 @@
 
 import UIKit
 
+/***************MY SOLUTION******************/
+protocol ProfileHeaderDelegate: class {
+    func handleDismissal()
+}
+
 class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Properties
+    
+    var user: User? {
+        didSet { configure() }
+    }
+    
+    /***************MY SOLUTION******************/
+    weak var delegate: ProfileHeaderDelegate?
+    /***************MY SOLUTION******************/
     
     private let filterBar = ProfileFilterView()
     
@@ -84,6 +97,24 @@ class ProfileHeader: UICollectionReusableView {
         return view
     }()
     
+    private lazy var followingLabel: UILabel = {
+        let label = UILabel()
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowerTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(followTap)
+        label.text = "0 Following"
+        return label
+    }()
+
+    private lazy var followersLabel: UILabel = {
+        let label = UILabel()
+        let followingTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(followingTap)
+        label.text = "0 Follower"
+        return label
+    }()
+
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -100,18 +131,29 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(editProfileFollowButton)
         editProfileFollowButton.anchor(top:containerView.bottomAnchor, right: rightAnchor, paddingTop: 12.0, paddingRight: 12.0)
         
-        let stack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel, bioLabel])
-        stack.axis = .vertical
-        stack.spacing = 4.0
-        stack.distribution = .fillProportionally
+        let userDetailstack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel, bioLabel])
+        userDetailstack.axis = .vertical
+        userDetailstack.spacing = 4.0
+        userDetailstack.distribution = .fillProportionally
         
-        addSubview(stack)
-        stack.anchor(top: profileImageView.bottomAnchor,
+        addSubview(userDetailstack)
+        userDetailstack.anchor(top: profileImageView.bottomAnchor,
                      left: leftAnchor,
                      right: rightAnchor,
                      paddingTop: 8.0,
                      paddingLeft: 12.0,
                      paddingRight: 12.0)
+        
+        let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+        followStack.axis = .horizontal
+        followStack.spacing = 8.0
+        followStack.distribution = .fillEqually
+        
+        addSubview(followStack)
+        followStack.anchor(top: userDetailstack.bottomAnchor,
+                           left: leftAnchor,
+                           paddingTop: 8.0,
+                           paddingLeft: 12.0)
         
         addSubview(filterBar)
         filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50.0)
@@ -128,10 +170,31 @@ class ProfileHeader: UICollectionReusableView {
     
     @objc func handleDismissal() {
         print("DEBUG: back button tapped")
+        /***************MY SOLUTION******************/
+        delegate?.handleDismissal()
+        /***************MY SOLUTION******************/
     }
     
     @objc func handleEditProfileFollow() {
         
+    }
+    
+    @objc func handleFollowerTapped() {
+        print("DEBUG: follower label tapped")
+    }
+    
+    @objc func handleFollowingTapped() {
+        print("DEBUG: following label tapped")
+    }
+    
+    // MARK: Helpers
+    
+    private func configure() {
+        guard let user = user else { return }
+        let viewModel = ProfileHeaderViewModel(user: user)
+        followingLabel.attributedText = viewModel.followingString
+        followersLabel.attributedText = viewModel.followersString
+        profileImageView.sd_setImage(with: user.profileImageUrl)
     }
 }
 

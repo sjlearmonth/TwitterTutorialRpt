@@ -73,7 +73,8 @@ extension ProfileFilterView: UICollectionViewDelegate {
 
 extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width / 3.0, height: frame.height)
+        let numberOfOptions = CGFloat(ProfileFilterOptions.allCases.count)
+        return CGSize(width: frame.width / numberOfOptions, height: frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
