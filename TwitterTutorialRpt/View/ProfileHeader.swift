@@ -7,7 +7,6 @@
 
 import UIKit
 
-/***************MY SOLUTION******************/
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
 }
@@ -20,9 +19,7 @@ class ProfileHeader: UICollectionReusableView {
         didSet { configure() }
     }
     
-    /***************MY SOLUTION******************/
     weak var delegate: ProfileHeaderDelegate?
-    /***************MY SOLUTION******************/
     
     private let filterBar = ProfileFilterView()
     
@@ -102,7 +99,6 @@ class ProfileHeader: UICollectionReusableView {
         let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowerTapped))
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(followTap)
-        label.text = "0 Following"
         return label
     }()
 
@@ -111,7 +107,6 @@ class ProfileHeader: UICollectionReusableView {
         let followingTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(followingTap)
-        label.text = "0 Follower"
         return label
     }()
 
@@ -170,9 +165,7 @@ class ProfileHeader: UICollectionReusableView {
     
     @objc func handleDismissal() {
         print("DEBUG: back button tapped")
-        /***************MY SOLUTION******************/
         delegate?.handleDismissal()
-        /***************MY SOLUTION******************/
     }
     
     @objc func handleEditProfileFollow() {
@@ -195,6 +188,7 @@ class ProfileHeader: UICollectionReusableView {
         followingLabel.attributedText = viewModel.followingString
         followersLabel.attributedText = viewModel.followersString
         profileImageView.sd_setImage(with: user.profileImageUrl)
+        editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
     }
 }
 

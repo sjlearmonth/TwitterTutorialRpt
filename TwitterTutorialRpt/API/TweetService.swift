@@ -20,7 +20,7 @@ struct TweetService {
                       "retweets": 0,
                       "caption": caption] as [String: Any]
         
-        TWEETS_REF.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+//        TWEETS_REF.childByAutoId().updateChildValues(values, completion: ( Error, DatabaseReference))
     }
     
     func fetchTweets(completion: @escaping ([Tweet]) -> Void) {
@@ -33,9 +33,7 @@ struct TweetService {
                 let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
                 tweets.append(tweet)
                 completion(tweets)
-
             }
-            
         }
     }
 }
