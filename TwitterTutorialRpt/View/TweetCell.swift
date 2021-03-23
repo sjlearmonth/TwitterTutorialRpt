@@ -62,6 +62,17 @@ class TweetCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
         return button
     }()
+    
+    private let commentCountLabel: UILabel = {
+        let label = UILabel()
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ","
+        formatter.numberStyle = .decimal
+        label.text = formatter.string(from: 1234)
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
+    }()
 
     private lazy var retweetButton: UIButton = {
         let button = UIButton(type: .system)
@@ -71,6 +82,14 @@ class TweetCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(handleRetweetTapped), for: .touchUpInside)
         return button
     }()
+    
+    private let retweetCountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
+    }()
 
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -79,6 +98,14 @@ class TweetCell: UICollectionViewCell {
         button.setDimensions(width: 20.0, height: 20.0)
         button.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
         return button
+    }()
+    
+    private let likeCountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
     }()
 
     private lazy var shareButton: UIButton = {
@@ -114,12 +141,27 @@ class TweetCell: UICollectionViewCell {
         
         infoLabel.font = UIFont.systemFont(ofSize: 13.0)
         
-        let actionStack = UIStackView(arrangedSubviews: [commentButton,
-                                                        retweetButton,
-                                                        likeButton,
+        let commentStack = UIStackView(arrangedSubviews: [commentButton, commentCountLabel])
+        commentStack.axis = .horizontal
+        commentStack.spacing = 6
+        commentStack.distribution = .fill
+        
+        let retweetStack = UIStackView(arrangedSubviews: [retweetButton, retweetCountLabel])
+        retweetStack.axis = .horizontal
+        retweetStack.spacing = 6
+        retweetStack.distribution = .fill
+
+        let likeStack = UIStackView(arrangedSubviews: [likeButton, likeCountLabel])
+        likeStack.axis = .horizontal
+        likeStack.spacing = 6
+        likeStack.distribution = .fill
+
+        let actionStack = UIStackView(arrangedSubviews: [commentStack,
+                                                         retweetStack,
+                                                         likeStack,
                                                         shareButton])
         actionStack.axis = .horizontal
-        actionStack.spacing = 72
+        actionStack.spacing = 50
         
         addSubview(actionStack)
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8.0)
