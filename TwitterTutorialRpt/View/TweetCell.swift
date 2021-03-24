@@ -68,7 +68,7 @@ class TweetCell: UICollectionViewCell {
         let formatter = NumberFormatter()
         formatter.groupingSeparator = ","
         formatter.numberStyle = .decimal
-        label.text = formatter.string(from: 1234)
+        label.text = formatter.string(from: 0)
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
@@ -85,7 +85,10 @@ class TweetCell: UICollectionViewCell {
     
     private let retweetCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ","
+        formatter.numberStyle = .decimal
+        label.text = formatter.string(from: 0)
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
@@ -102,7 +105,10 @@ class TweetCell: UICollectionViewCell {
     
     private let likeCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ","
+        formatter.numberStyle = .decimal
+        label.text = formatter.string(from: 0)
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
