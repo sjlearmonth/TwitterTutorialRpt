@@ -110,6 +110,12 @@ extension ProfileController {
 // MARK: - ProfileHeaderDelegate
 
 extension ProfileController: ProfileHeaderDelegate {
+    func handleEditProfileFollow(_ header: ProfileHeader) {
+        UserService.shared.followUser(uid: user.uid) { (ref, err) in
+            
+        }
+    }
+
     func handleDismissal() {
         navigationController?.popViewController(animated: true)
     }

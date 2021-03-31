@@ -8,6 +8,7 @@
 import Firebase
 
 let REALTIME_DATABASE_REFERENCE = Database.database().reference()
+
 let USERS_REF = REALTIME_DATABASE_REFERENCE.child("users")
 
 let STORAGE_REF = Storage.storage().reference()
@@ -15,4 +16,8 @@ let PROFILE_IMAGES_STORAGE = STORAGE_REF.child("profile_images")
 
 let TWEETS_REF = REALTIME_DATABASE_REFERENCE.child("tweets")
 let USER_TWEETS_REF = REALTIME_DATABASE_REFERENCE.child("user-tweets")
+
+let USER_FOLLOWERS_REF = REALTIME_DATABASE_REFERENCE.child("user-followers")
+let USER_FOLLOWING_REF = REALTIME_DATABASE_REFERENCE.child("user-following")
+
 

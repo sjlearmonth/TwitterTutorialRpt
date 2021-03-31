@@ -11,6 +11,10 @@ class UserCell: UITableViewCell {
     
     // MARK: - Properties
     
+    var user: User? {
+        didSet { populateCellElements() }
+    }
+    
     private lazy var profileImageView: UIImageView = {
         let piv = UIImageView()
         piv.contentMode = .scaleAspectFill
@@ -35,8 +39,6 @@ class UserCell: UITableViewCell {
         return label
     }()
 
-
-    
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -58,5 +60,12 @@ class UserCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARL: - Helpers
     
+    private func populateCellElements() {
+        guard let user = user else { return }
+        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
+        usernameLabel.text = user.username
+        fullnameLabel.text = user.fullname
+    }
 }
