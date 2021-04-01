@@ -20,4 +20,4 @@ let USER_TWEETS_REF = REALTIME_DATABASE_REFERENCE.child("user-tweets")
 let USER_FOLLOWERS_REF = REALTIME_DATABASE_REFERENCE.child("user-followers")
 let USER_FOLLOWING_REF = REALTIME_DATABASE_REFERENCE.child("user-following")
 
-
+typealias DatabaseCompletion = ((Error?, DatabaseReference) -> Void)

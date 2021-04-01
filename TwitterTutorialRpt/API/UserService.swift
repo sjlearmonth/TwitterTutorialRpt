@@ -29,9 +29,24 @@ struct UserService {
         }
     }
     
-    func followUser(uid: String, completion: @escaping (Database, Error?) -> ()) {
+    func followUser(uid: String, completion: @escaping DatabaseCompletion ) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        print("DEBUG: Current uid \(currentUid) started following \(uid)")
-        print("DEBUG: uid \(uid) gained \(currentUid) as a follower")
+        USER_FOLLOWING_REF.child(currentUid).updateChildValues([uid : 1]) { (err, ref) in
+            USER_FOLLOWERS_REF.child(uid).updateChildValues([currentUid : 1], withCompletionBlock: completion)
+        }
+    }
+    
+    func unfollowUser(uid: String, completion: @escaping DatabaseCompletion) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        USER_FOLLOWING_REF.child(currentUid).child(uid).removeValue { (err, ref) in
+            USER_FOLLOWERS_REF.child(uid).child(currentUid).removeValue(completionBlock: completion)
+        }
+    }
+    
+    func checkIfUserIsFollowed(uid: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        USER_FOLLOWING_REF.child(currentUid).child(uid).observeSingleEvent(of: .value) {snapshot in
+            completion(snapshot.exists())
+        }
     }
 }
