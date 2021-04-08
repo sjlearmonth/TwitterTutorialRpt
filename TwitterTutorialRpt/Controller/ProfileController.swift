@@ -38,6 +38,7 @@ class ProfileController: UICollectionViewController {
         configureCollectionView()
         fetchTweets()
         checkifUserIsFollowed()
+        fetchUserStats()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,13 @@ class ProfileController: UICollectionViewController {
     func checkifUserIsFollowed() {
         UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
             self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchUserStats() {
+        UserService.shared.fetchUserStats(uid: user.uid) { stats in
+            self.user.stats = stats
             self.collectionView.reloadData()
         }
     }
@@ -119,6 +127,11 @@ extension ProfileController {
 
 extension ProfileController: ProfileHeaderDelegate {
     func handleEditProfileFollow(_ header: ProfileHeader) {
+        
+        if user.isCurrentUser {
+            print("DEBUG: Show edit profile controller.")
+            return
+        }
         
         if user.isFollowed {
             UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
