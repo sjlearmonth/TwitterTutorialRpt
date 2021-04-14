@@ -65,6 +65,50 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
+    private lazy var retweetsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2 Retweets"
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
+    }()
+    
+    private lazy var likesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0 Likes"
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
+    }()
+
+    private lazy var statsView: UIView = {
+        let view = UIView()
+        let upperDivider = UIView()
+        upperDivider.backgroundColor = .systemGroupedBackground
+        view.addSubview(upperDivider)
+        upperDivider.anchor(top: view.topAnchor,
+                            left: view.leftAnchor,
+                            right: view.rightAnchor,
+                            paddingLeft: 8.0,
+                            height: 1.8)
+        
+        let stack = UIStackView(arrangedSubviews: [retweetsLabel, likesLabel])
+        stack.axis = .horizontal
+        stack.spacing = 12
+        
+        view.addSubview(stack)
+        stack.centerY(inView: view)
+        stack.anchor(left: view.leftAnchor, paddingLeft: 16.0)
+
+        let lowerDivider = UIView()
+        lowerDivider.backgroundColor = .systemGroupedBackground
+        view.addSubview(lowerDivider)
+        lowerDivider.anchor(left: view.leftAnchor,
+                            bottom: view.bottomAnchor,
+                            right: view.rightAnchor,
+                            paddingLeft: 8.0,
+                            height: 1.8)
+        return view
+    }()
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -94,6 +138,9 @@ class TweetHeader: UICollectionReusableView {
         addSubview(optionsButton)
         optionsButton.centerY(inView: stack)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8.0)
+        
+        addSubview(statsView)
+        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20.0, height: 40.0)
     }
     
     required init?(coder: NSCoder) {
