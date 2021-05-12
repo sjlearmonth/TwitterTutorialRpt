@@ -15,8 +15,7 @@ class TweetController: UICollectionViewController {
     // MARK: - Properties
     
     private let tweet: Tweet
-    private let actionSheetLauncher: ActionSheetLauncher
-    
+    private var actionSheetLauncher: ActionSheetLauncher!
     private var replies = [Tweet]() {
         didSet { collectionView.reloadData() }
     }
@@ -102,8 +101,17 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
 
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
-        actionSheetLauncher.show()
+        if tweet.user.isCurrentUser {
+            actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
+            actionSheetLauncher.show()
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: tweet.user.uid) { isFollowed in
+                var user = self.tweet.user
+                user.isFollowed = isFollowed
+                self.actionSheetLauncher = ActionSheetLauncher(user: user)
+                self.actionSheetLauncher.show()
+            }
+        }
+        
     }
-    
-    
 }
