@@ -24,4 +24,8 @@ let USER_FOLLOWING_REF = REALTIME_DATABASE_REFERENCE.child("user-following")
 
 let TWEET_REPLIES_REF = REALTIME_DATABASE_REFERENCE.child("tweet-replies")
 
+let USER_LIKES_REF = REALTIME_DATABASE_REFERENCE.child("user-likes")
+
+let TWEET_LIKES_REF = REALTIME_DATABASE_REFERENCE.child("tweet-likes")
+
 typealias DatabaseCompletion = ((Error?, DatabaseReference) -> Void)

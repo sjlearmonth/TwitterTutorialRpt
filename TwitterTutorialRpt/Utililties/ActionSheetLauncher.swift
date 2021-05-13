@@ -9,6 +9,10 @@ import UIKit
 
 private let reuseIdentifier = "ActionSheetCell"
 
+protocol ActionSheetLauncherDelegate: AnyObject {
+    func didSelect(option: ActionSheetOptions)
+}
+
 class ActionSheetLauncher: NSObject {
     
     // MARK: - Properties
@@ -17,6 +21,8 @@ class ActionSheetLauncher: NSObject {
     private let tableView = UITableView()
     private var window: UIWindow?
     private lazy var viewModel = ActionSheetViewModel(user: user)
+    weak var delegate: ActionSheetLauncherDelegate?
+    private var tableViewHeight: CGFloat!
     
     private lazy var blackView: UIView = {
         let view = UIView()
@@ -60,13 +66,17 @@ class ActionSheetLauncher: NSObject {
     @objc func handleDismissal() {
         UIView.animate(withDuration: 0.4) {
             self.blackView.alpha = 0.0
-            self.tableView.frame.origin.y += 300.0
-            self.blackView.frame.origin.y += 300.0
+            self.tableView.frame.origin.y += self.tableViewHeight
+            self.blackView.frame.origin.y += self.tableViewHeight
         }
-
-        
     }
     // MARK: - Helper Functions
+    
+    func showTableView(_ shouldShow: Bool) {
+        guard let window = window else { return }
+        let y = shouldShow ? window.frame.height - tableViewHeight : window.frame.height
+        tableView.frame.origin.y = y
+    }
     
     func show() {
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
@@ -76,13 +86,13 @@ class ActionSheetLauncher: NSObject {
         blackView.frame = window.frame
 
         window.addSubview(tableView)
-        let height = CGFloat(viewModel.options.count * 60) + 100.0
-        tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
+        tableViewHeight = CGFloat(viewModel.options.count * 60) + 100.0
+        tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: tableViewHeight)
         
         UIView.animate(withDuration: 0.4) {
             self.blackView.alpha = 1.0
-            self.tableView.frame.origin.y -= height
-            self.blackView.frame.origin.y -= height
+            self.showTableView(true)
+            self.blackView.frame.origin.y -= self.tableViewHeight
         }
     }
     
@@ -124,5 +134,17 @@ extension ActionSheetLauncher: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let option = viewModel.options[indexPath.row]
+        
+        UIView.animate(withDuration: 0.4) {
+            self.blackView.alpha = 0
+            self.showTableView(false)
+            self.blackView.frame.origin.y += self.tableViewHeight!
+        } completion: { _ in
+            self.delegate?.didSelect(option: option)
+        }
     }
 }

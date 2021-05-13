@@ -56,6 +56,12 @@ class TweetController: UICollectionViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: headerIdentifier)
     }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -99,19 +105,41 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - TweetHeaderDelegate
+
 extension TweetController: TweetHeaderDelegate {
+    
     func showActionSheet() {
         if tweet.user.isCurrentUser {
-            actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
-            actionSheetLauncher.show()
+            showActionSheet(forUser: tweet.user)
         } else {
             UserService.shared.checkIfUserIsFollowed(uid: tweet.user.uid) { isFollowed in
                 var user = self.tweet.user
                 user.isFollowed = isFollowed
-                self.actionSheetLauncher = ActionSheetLauncher(user: user)
-                self.actionSheetLauncher.show()
+                self.showActionSheet(forUser: user)
             }
         }
+    }
+}
+
+// MARK: - ActionSheetLauncherDelegate
+
+extension TweetController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        switch option {
         
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { err, ref in
+                print("DEBUG: Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                print("DEBUG: Did unfollow user \(user.username)")
+            }
+        case .report:
+            print("DEBUG: Report tweet")
+        case .delete:
+            print("DEBUG: Delete tweet")
+        }
     }
 }
