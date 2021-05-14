@@ -94,4 +94,11 @@ struct TweetService {
             }
         }
     }
+    
+    func checkIfUserLikedTweet(_ tweet: Tweet, completion: @escaping(Bool) -> ()) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        USER_LIKES_REF.child(uid).child(tweet.tweetID).observeSingleEvent(of: .value) { snapshot in
+            completion(snapshot.exists())
+        }
+    }
 }

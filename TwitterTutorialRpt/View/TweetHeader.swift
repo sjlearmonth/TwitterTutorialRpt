@@ -18,8 +18,11 @@ class TweetHeader: UICollectionReusableView {
     var tweet: Tweet? {
         didSet {
             configureHeader()
+            configureButtonStacks()
         }
     }
+    
+    var viewModel: TweetViewModel!
     
     weak var delegate: TweetHeaderDelegate?
     
@@ -111,21 +114,13 @@ class TweetHeader: UICollectionReusableView {
         return view
     }()
     
-    private lazy var commentStack = createButtonWithCountStack(withImageName: "comment",
-                                           andSelector: #selector(handleCommentButtonTapped),
-                                           andCount:   0)
+    private var commentStack: UIStackView?
 
-    private lazy var retweetStack = createButtonWithCountStack(withImageName: "retweet",
-                                           andSelector: #selector(handleRetweetButtonTapped),
-                                           andCount:   0)
+    private var retweetStack: UIStackView?
 
-    private lazy var likeStack = createButtonWithCountStack(withImageName: "like",
-                                           andSelector: #selector(handleLikeButtonTapped),
-                                           andCount:   0)
+    private var likeStack: UIStackView?
 
-    private lazy var shareStack = createButtonWithCountStack(withImageName: "share",
-                                           andSelector: #selector(handleShareButtonTapped),
-                                           andCount:   0)
+    private var shareStack: UIStackView?
 
     // MARK: - Lifecycle
     
@@ -160,14 +155,6 @@ class TweetHeader: UICollectionReusableView {
         addSubview(statsView)
         statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12.0, height: 40.0)
         
-        let actionStack = UIStackView(arrangedSubviews: [commentStack, retweetStack, likeStack, shareStack])
-        actionStack.axis = .horizontal
-        actionStack.spacing = 48.0
-        actionStack.distribution = .fill
-        
-        addSubview(actionStack)
-        actionStack.centerX(inView: self)
-        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 16.0)
     }
     
     required init?(coder: NSCoder) {
@@ -203,6 +190,34 @@ class TweetHeader: UICollectionReusableView {
 
     // MARK: - Helper Functions
     
+    private func configureButtonStacks() {
+        commentStack = createButtonWithCountStack(withImageName: "comment",
+                                               andSelector: #selector(handleCommentButtonTapped),
+                                               andCount:   0)
+
+        retweetStack = createButtonWithCountStack(withImageName: "retweet",
+                                               andSelector: #selector(handleRetweetButtonTapped),
+                                               andCount:   0)
+
+        likeStack = createButtonWithCountStack(withImageName: "like",
+                                               andSelector: #selector(handleLikeButtonTapped),
+                                               andCount:   0)
+
+        shareStack = createButtonWithCountStack(withImageName: "share",
+                                               andSelector: #selector(handleShareButtonTapped),
+                                               andCount:   0)
+        
+        let actionStack = UIStackView(arrangedSubviews: [commentStack!, retweetStack!, likeStack!, shareStack!])
+        actionStack.axis = .horizontal
+        actionStack.spacing = 48.0
+        actionStack.distribution = .fill
+        
+        addSubview(actionStack)
+        actionStack.centerX(inView: self)
+        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 16.0)
+
+    }
+    
     private func createButtonWithCountStack(withImageName imageName: String,
                                             andSelector selector: Selector,
                                             andCount count: Int) -> UIStackView {
@@ -212,6 +227,10 @@ class TweetHeader: UICollectionReusableView {
         button.tintColor = .darkGray
         button.setDimensions(width: 20.0, height: 20.0)
         button.addTarget(self, action: selector, for: .touchUpInside)
+        if selector == #selector(handleLikeButtonTapped) {
+            button.setImage(viewModel.likeButtonImage, for: .normal)
+            button.tintColor = viewModel.likeButtonTintColor
+        }
         
         let label = UILabel()
         let formatter = NumberFormatter()
@@ -232,7 +251,7 @@ class TweetHeader: UICollectionReusableView {
     private func configureHeader() {
         guard let tweet = tweet else { return }
         
-        let viewModel = TweetViewModel(tweet: tweet)
+        viewModel = TweetViewModel(tweet: tweet)
         
         captionLabel.text = tweet.caption
         fullnameLabel.text = tweet.user.fullname
@@ -241,5 +260,6 @@ class TweetHeader: UICollectionReusableView {
         dateLabel.text = viewModel.headerTimestamp
         retweetsLabel.attributedText = viewModel.retweetsAttributedString
         likesLabel.attributedText = viewModel.likesAttributedString
+        
     }
 }
