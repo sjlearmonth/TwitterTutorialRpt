@@ -9,6 +9,7 @@ import UIKit
 
 protocol NotificationCellDelegate: AnyObject {
     func didTapProfileImage(_ cell: NotificationCell)
+    func didTapFollowButton(_ cell: NotificationCell)
 }
 
 class NotificationCell: UITableViewCell {
@@ -37,7 +38,6 @@ class NotificationCell: UITableViewCell {
     
     private lazy var followButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Loading", for: .normal)
         button.setTitleColor(.twitterBlue, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12.0)
         button.backgroundColor = .white
@@ -69,7 +69,7 @@ class NotificationCell: UITableViewCell {
         
         addSubview(followButton)
         followButton.centerY(inView: self)
-        followButton.setDimensions(width: 80.0, height: 32.0)
+        followButton.setDimensions(width: 92.0, height: 32.0)
         followButton.layer.cornerRadius = 32.0 / 2.0
         followButton.anchor(right: rightAnchor, paddingRight: 12.0)
     }
@@ -85,7 +85,7 @@ class NotificationCell: UITableViewCell {
     }
     
     @objc func handleFollowTapped() {
-        
+        delegate?.didTapFollowButton(self)
     }
     
     // MARK: - Helper Functions
@@ -97,5 +97,6 @@ class NotificationCell: UITableViewCell {
         notificationLabel.attributedText = viewModel.notificationText
         self.selectionStyle = .none
         followButton.isHidden = viewModel.shouldHideFollowButton
+        followButton.setTitle(viewModel.followButtonText, for: .normal)
     }
 }
