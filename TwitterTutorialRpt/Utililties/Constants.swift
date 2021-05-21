@@ -30,4 +30,6 @@ let TWEET_LIKES_REF = REALTIME_DATABASE_REFERENCE.child("tweet-likes")
 
 let NOTIFICATIONS_REF = REALTIME_DATABASE_REFERENCE.child("notifications")
 
+let USER_REPLIES_REF = REALTIME_DATABASE_REFERENCE.child("user-replies")
+
 typealias DatabaseCompletion = ((Error?, DatabaseReference) -> Void)
