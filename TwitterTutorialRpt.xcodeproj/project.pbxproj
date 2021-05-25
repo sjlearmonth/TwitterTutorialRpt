@@ -17,6 +17,7 @@
 		C43AC9EB264ADE240074F9AB /* ActionSheetLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43AC9EA264ADE240074F9AB /* ActionSheetLauncher.swift */; };
 		C43AC9ED264C2DDD0074F9AB /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43AC9EC264C2DDD0074F9AB /* ActionSheetCell.swift */; };
 		C43AC9EF264C35C80074F9AB /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43AC9EE264C35C80074F9AB /* ActionSheetViewModel.swift */; };
+		C43CABAC265D5AA6009E1953 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43CABAB265D5AA6009E1953 /* EditProfileController.swift */; };
 		C43DAA2725EFF147006EC204 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43DAA2625EFF147006EC204 /* UploadTweetController.swift */; };
 		C43DAA2A25F001A9006EC204 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43DAA2925F001A9006EC204 /* CaptionTextView.swift */; };
 		C44CD974260BAA2800FEB6F7 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CD973260BAA2800FEB6F7 /* UserCell.swift */; };
@@ -62,6 +63,7 @@
 		C43AC9EA264ADE240074F9AB /* ActionSheetLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetLauncher.swift; sourceTree = "<group>"; };
 		C43AC9EC264C2DDD0074F9AB /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
 		C43AC9EE264C35C80074F9AB /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
+		C43CABAB265D5AA6009E1953 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		C43DAA2625EFF147006EC204 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
 		C43DAA2925F001A9006EC204 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
 		C44CD973260BAA2800FEB6F7 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				C43DAA2625EFF147006EC204 /* UploadTweetController.swift */,
 				C4BD472A25FA6B19001668C5 /* ProfileController.swift */,
 				C481F1282620A2C2008F8B30 /* TweetController.swift */,
+				C43CABAB265D5AA6009E1953 /* EditProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				C4612B9525D4547400CC1CC9 /* ConversationsController.swift in Sources */,
 				C4E21CE925DC1B4C0024FDB9 /* Utilities.swift in Sources */,
 				C49DA9FC25D440C90069553C /* AppDelegate.swift in Sources */,
+				C43CABAC265D5AA6009E1953 /* EditProfileController.swift in Sources */,
 				C43AC9ED264C2DDD0074F9AB /* ActionSheetCell.swift in Sources */,
 				C4CC99D625DAD47E00D43EB7 /* Extensions.swift in Sources */,
 				C4CACAB626540DE2004BAD62 /* NotificationViewModel.swift in Sources */,

@@ -69,18 +69,18 @@ class FeedController: UICollectionViewController {
         collectionView.refreshControl?.beginRefreshing()
         TweetService.shared.fetchTweets { (tweets) in
             self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
-            self.checkIfUserLikedTweets(self.tweets)
+            self.checkIfUserLikedTweets()
             self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
     // MARK: - Helpers
     
-    private func checkIfUserLikedTweets(_ tweets: [Tweet]) {
+    private func checkIfUserLikedTweets() {
         self.tweets.forEach { tweet in
             TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
                 guard didLike == true else { return }
-                if let index = tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
+                if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
                     self.tweets[index].didLike = true
                 }
             }
