@@ -32,4 +32,6 @@ let NOTIFICATIONS_REF = REALTIME_DATABASE_REFERENCE.child("notifications")
 
 let USER_REPLIES_REF = REALTIME_DATABASE_REFERENCE.child("user-replies")
 
+let USER_USERNAMES_REF = REALTIME_DATABASE_REFERENCE.child("user-usernames")
+
 typealias DatabaseCompletion = ((Error?, DatabaseReference) -> Void)

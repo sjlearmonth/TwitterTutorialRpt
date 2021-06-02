@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol EditProfileCellDelegate: AnyObject {
+    func updateUserInfo(_ cell: EditProfileCell)
+}
+
 class EditProfileCell: UITableViewCell {
     
     // MARK: - Properties
@@ -15,10 +19,11 @@ class EditProfileCell: UITableViewCell {
         didSet { configure() }
     }
     
+    weak var delegate: EditProfileCellDelegate?
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14.0)
-        label.text = "titleLabel"
         return label
     }()
     
@@ -28,7 +33,7 @@ class EditProfileCell: UITableViewCell {
         tf.font = UIFont.systemFont(ofSize: 14.0)
         tf.textAlignment = .left
         tf.textColor = .twitterBlue
-        tf.addTarget(self, action: #selector(handleUpdateUserInfo), for: .editingDidBegin)
+        tf.addTarget(self, action: #selector(handleUpdateUserInfo), for: .editingDidEnd)
         tf.text = "infoTextField"
         return tf
     }()
@@ -38,6 +43,7 @@ class EditProfileCell: UITableViewCell {
         tv.font = UIFont.systemFont(ofSize: 14.0)
         tv.textColor = .twitterBlue
         tv.placeholderLabel.text = "Bio"
+        tv.placeholderLabel.textColor = .lightGray
         return tv
     }()
     
@@ -57,6 +63,8 @@ class EditProfileCell: UITableViewCell {
         
         contentView.addSubview(bioTextView)
         bioTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4.0, paddingLeft: 16.0, paddingRight: 8.0)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUserInfo), name: UITextView.textDidEndEditingNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +74,7 @@ class EditProfileCell: UITableViewCell {
     // MARK: - Selectors
     
     @objc func handleUpdateUserInfo() {
-        
+        delegate?.updateUserInfo(self)
     }
     
     // MARK: - Helper Functions
@@ -76,5 +84,10 @@ class EditProfileCell: UITableViewCell {
         
         infoTextField.isHidden = viewModel.shouldHideTextField
         bioTextView.isHidden = viewModel.shouldHideTextView
+        titleLabel.text = viewModel.titleText
+        infoTextField.text = viewModel.optionValue
+        bioTextView.placeholderLabel.isHidden = viewModel.shouldHidePlaceholderLabel
+        bioTextView.text = viewModel.optionValue
+        
     }
 }

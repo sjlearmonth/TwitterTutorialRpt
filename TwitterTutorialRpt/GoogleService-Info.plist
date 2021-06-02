@@ -19,16 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>twittertutorialrpt-f4dbc.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:137582116738:ios:df15a2591692aae76e999b</string>
+	<key>DATABASE_URL</key>
+	<string>https://twittertutorialrpt-f4dbc-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

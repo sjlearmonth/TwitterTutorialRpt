@@ -178,6 +178,7 @@ extension ProfileController: ProfileHeaderDelegate {
         
         if user.isCurrentUser {
             let controller = EditProfileController(user: user)
+            controller.delegate = self
             let nav = UINavigationController(rootViewController: controller)
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .crossDissolve
@@ -206,3 +207,12 @@ extension ProfileController: ProfileHeaderDelegate {
     }
 }
 
+// MARK: - EditProfileControllerDelegate
+
+extension ProfileController: EditProfileControllerDelegate {
+    func controller(_ controller: EditProfileController, wantToUpdate user: User) {
+        controller.dismiss(animated: true, completion: nil)
+        self.user = user
+        self.collectionView.reloadData()
+    }
+}

@@ -9,12 +9,26 @@ import UIKit
 
 private let reuseIdentifier = "reuseIdentifier"
 
+protocol EditProfileControllerDelegate: AnyObject {
+    func controller(_ controller: EditProfileController, wantToUpdate user: User)
+}
+
 class EditProfileController: UITableViewController {
     
     // MARK: - Properties
     
-    private let user: User
+    private var user: User
     private lazy var headerView = EditProfileHeader(user: user)
+    private let imagePickerController = UIImagePickerController()
+    private var pickedImage: UIImage? {
+        didSet { headerView.profileImageView.image = pickedImage }
+    }
+    private var userInfoChanged = false
+    private var imageChanged: Bool {
+        return pickedImage != nil
+    }
+    
+    weak var delegate: EditProfileControllerDelegate?
     
     // MARK: - Lifecycle
     
@@ -31,6 +45,7 @@ class EditProfileController: UITableViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureTableView()
+        configureImagePicker()
     }
     
     // MARK: - Selectors
@@ -40,10 +55,40 @@ class EditProfileController: UITableViewController {
     }
     
     @objc func handleSave() {
-        
+        view.endEditing(true)
+        guard imageChanged || userInfoChanged else { return }
+        updateUserData()
     }
     
     // MARK: - API
+    
+    private func updateUserData() {
+        
+        if imageChanged && !userInfoChanged {
+            updateProfileImage()
+        }
+        
+        if userInfoChanged && !imageChanged {
+            UserService.shared.saveUserData(user: user) { err, ref in
+                self.delegate?.controller(self, wantToUpdate: self.user)
+            }
+        }
+        
+        if userInfoChanged && imageChanged {
+            UserService.shared.saveUserData(user: user) { err, ref in
+                self.updateProfileImage()
+            }
+        }
+    }
+    
+    private func updateProfileImage() {
+        guard let image = pickedImage else { return }
+        UserService.shared.updateProfileImage(image: image) { profileImageUrl in
+            self.user.profileImageUrl = profileImageUrl
+            self.delegate?.controller(self, wantToUpdate: self.user)
+        }
+        
+    }
     
     // MARK: - Helpers
     
@@ -63,7 +108,6 @@ class EditProfileController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handleSave))
         navigationItem.rightBarButtonItem?.tintColor = .white
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16.0)], for: .normal)
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     private func configureTableView() {
@@ -73,13 +117,20 @@ class EditProfileController: UITableViewController {
         headerView.delegate = self
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
+    
+    private func configureImagePicker() {
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+    }
 }
 
 extension EditProfileController: EditProfileHeaderDelegate {
     func didTapChangeProfilePhoto() {
-        
+        present(imagePickerController, animated: true, completion: nil)
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension EditProfileController {
     
@@ -88,6 +139,8 @@ extension EditProfileController {
         return option == .bio ? 100 : 48
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension EditProfileController {
 
@@ -99,6 +152,41 @@ extension EditProfileController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EditProfileCell
         
         guard let option = EditProfileOptions(rawValue: indexPath.row) else { return cell }
+        cell.viewModel = EditProfileViewModel(user: user, option: option)
+        cell.delegate = self
         return cell
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let pickedImage = info[.editedImage] as? UIImage else { return }
+        self.pickedImage = pickedImage
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - EditProfileCellDelegate
+
+extension EditProfileController: EditProfileCellDelegate {
+    func updateUserInfo(_ cell: EditProfileCell) {
+        guard let viewModel = cell.viewModel else { return }
+        userInfoChanged = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        
+        switch viewModel.option {
+        
+        case .fullname:
+            guard let fullname = cell.infoTextField.text else { return }
+            user.fullname = fullname
+        case .username:
+            guard let username = cell.infoTextField.text else { return }
+            user.username = username
+        case .bio:
+            user.bio = cell.bioTextView.text
+        }
+
     }
 }
