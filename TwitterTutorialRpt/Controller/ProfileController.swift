@@ -147,7 +147,13 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 350.0)
+        var height: CGFloat = 300.0
+        
+        if user.bio != nil {
+            height += 50.0
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
     }
 }
 
@@ -197,7 +203,7 @@ extension ProfileController: ProfileHeaderDelegate {
                 self.user.isFollowed = true
                 self.collectionView.reloadData()
                 
-                NotificationService.shared.uploadNotification(type: .follow, user: self.user)
+                NotificationService.shared.uploadNotification(toUser: self.user, type: .follow)
             }
         }
     }

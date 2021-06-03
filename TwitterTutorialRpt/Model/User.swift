@@ -29,7 +29,9 @@ struct User {
         } else {
             self.profileImageUrl = URL(string: "")
         }
-        self.bio = dictionary["bio"] as? String ?? ""
+        if let bio = dictionary["bio"] as? String {
+            self.bio = bio
+        }
     }
 }
 

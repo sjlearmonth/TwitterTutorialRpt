@@ -87,7 +87,6 @@ class EditProfileController: UITableViewController {
             self.user.profileImageUrl = profileImageUrl
             self.delegate?.controller(self, wantToUpdate: self.user)
         }
-        
     }
     
     // MARK: - Helpers
@@ -187,6 +186,5 @@ extension EditProfileController: EditProfileCellDelegate {
         case .bio:
             user.bio = cell.bioTextView.text
         }
-
     }
 }
