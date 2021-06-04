@@ -80,8 +80,8 @@ struct UserService {
     
     func saveUserData(user: User, completion: @escaping (DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let values = ["fullname": user.fullname, "username": user.username, "bio": user.bio!]
-        USERS_REF.child(uid).updateChildValues(values, withCompletionBlock: completion)
+        let values = ["fullname": user.fullname, "username": user.username, "bio": user.bio]
+        USERS_REF.child(uid).updateChildValues(values as [AnyHashable : Any], withCompletionBlock: completion)
     }
     
     func fetchUser(withUsername username: String, completion: @escaping (User) -> ()) {

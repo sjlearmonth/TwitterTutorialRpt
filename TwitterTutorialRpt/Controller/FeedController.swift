@@ -26,12 +26,15 @@ class FeedController: UICollectionViewController {
         }
     }
     
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let piv = UIImageView()
         piv.setDimensions(width: 40.0, height: 40.0)
         piv.layer.cornerRadius = 40.0 / 2.0
         piv.layer.masksToBounds = true
         piv.contentMode = .scaleAspectFill
+        piv.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTap))
+        piv.addGestureRecognizer(tap)
         return piv
     }()
     
@@ -61,6 +64,12 @@ class FeedController: UICollectionViewController {
     
     @objc func handleRefresh() {
         fetchTweets()
+    }
+    
+    @objc func handleProfileImageTap() {
+        guard let user = user else { return }
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: API

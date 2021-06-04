@@ -11,6 +11,7 @@ private let reuseIdentifier = "reuseIdentifier"
 
 protocol EditProfileControllerDelegate: AnyObject {
     func controller(_ controller: EditProfileController, wantToUpdate user: User)
+    func handleLogOut()
 }
 
 class EditProfileController: UITableViewController {
@@ -19,6 +20,7 @@ class EditProfileController: UITableViewController {
     
     private var user: User
     private lazy var headerView = EditProfileHeader(user: user)
+    private let footerView = EditProfileFooter()
     private let imagePickerController = UIImagePickerController()
     private var pickedImage: UIImage? {
         didSet { headerView.profileImageView.image = pickedImage }
@@ -79,6 +81,8 @@ class EditProfileController: UITableViewController {
                 self.updateProfileImage()
             }
         }
+        
+        
     }
     
     private func updateProfileImage() {
@@ -112,7 +116,9 @@ class EditProfileController: UITableViewController {
     private func configureTableView() {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
-        tableView.tableFooterView = UIView()
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100.0)
+        footerView.delegate = self
+        tableView.tableFooterView = footerView
         headerView.delegate = self
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
@@ -187,4 +193,24 @@ extension EditProfileController: EditProfileCellDelegate {
             user.bio = cell.bioTextView.text
         }
     }
+}
+
+// MARK: - EditProfileFooterDelegate
+
+extension EditProfileController: EditProfileFooterDelegate {
+    func handleLogOutButtonTapped() {
+        
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to Log Out", preferredStyle: .actionSheet)
+        let logOutAlertAction = UIAlertAction(title: "Log Out", style: .default) { _ in
+            self.dismiss(animated: true) {
+                self.delegate?.handleLogOut()
+            }
+        }
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(logOutAlertAction)
+        alertController.addAction(cancelAlertAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
 }
